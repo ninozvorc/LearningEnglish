@@ -18,6 +18,7 @@ $wordTypes = $baza->selectDB($wordTypesUpit);
 if (isset($_POST["cro"]) && isset($_POST["eng"])) {
     $cro_word = $_POST["cro"];
     $eng_word = $_POST["eng"];
+    $word_type = $_POST["vrsta"];
 
     $hrUpit = "select * from hr_word where '$cro_word'=word;";
     $hrPodaci = $baza->selectDB($hrUpit);
@@ -52,7 +53,7 @@ if (isset($_POST["cro"]) && isset($_POST["eng"])) {
     if ($red = $podaci->fetch_array()) {
         $error = "Zapis vec postoji u bazi!";
     } else {
-        $upit = "INSERT INTO dictionary values($idCro,$idEng,'',5,0,0,0,0)";
+        $upit = "INSERT INTO dictionary values($idCro,$idEng,'',$word_type,0,0,0,0)";
         $baza->updateDB($upit);
         $mess = "Zapis uspješno dodan!";
     }
@@ -71,7 +72,7 @@ if (isset($_POST["cro"]) && isset($_POST["eng"])) {
     </head>
     <body>
 
-        <?php include_once ("okviri/meni.php"); ?>
+<?php include_once ("okviri/meni.php"); ?>
         <br>
         <div class="row">
             <div class="large-12 columns">
@@ -115,7 +116,7 @@ if (isset($_POST["cro"]) && isset($_POST["eng"])) {
             </form>
         </div>
         <br>
-        <?php include_once ("okviri/footer.php"); ?>
+<?php include_once ("okviri/footer.php"); ?>
 
     </body>
 </html>
