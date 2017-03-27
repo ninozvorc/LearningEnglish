@@ -1,0 +1,30 @@
+
+body{
+    width: 100%;
+    background-color: #d9d9e9;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+table{ 
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}
+
+form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
+
+.forma{
+    margin-left: 5%;
+    width: 100%;
+}
+
+.forma2{
+    margin-left: 10%;
+    width: 80%;
+}
+
