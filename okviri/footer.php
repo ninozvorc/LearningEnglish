@@ -1,14 +1,4 @@
 <?php ?>
-<br>
-<footer class="row" >
-    <div class="large-12 columns"><hr>
-        <div class="row">
-            <div class="large-6 columns" >
-                <p> Nino Žvorc  &copy; 2017</p>
-            </div>
-        </div>
-    </div>
-</footer>
 
 <script src="javascripts/vendor/jquery.js"></script>
 <script src="javascripts/tablice.js"></script>
