@@ -28,8 +28,8 @@ if (isset($_POST["engl"])) {
         $mess = "Odgovor je netočan!";
         $color = "red";
     }
-    $query = "select * from hr_word h, en_word e, dictionary d, word_type w where w.id=d.word_type and h.id=d.hr_word and e.id=d.en_word and e.word like '$eng_word' ";
-    $odgovori = $baza->selectDB($query);
+    $query = "select * from hr_word h, en_word e, dictionary d, word_type w where w.id=d.word_type and h.id=d.hr_word and e.id=d.en_word and h.word like '$hr_word' ";
+    $data = $baza->selectDB($query);
 } else {
     $disply = "style=\"display: none\"";
 
@@ -88,11 +88,12 @@ if (isset($_POST["engl"])) {
             </form>
             <div class="row" <?php echo $disply ?> >
                 <h2 style="color: <?php echo $color; ?>; text-align: center;"><?php echo $mess; ?></h2><br>
-               <?php
-                while ($row = $odgovori->fetch_array()) {
-                    echo "<h3 style=\"text-align: center;\">$row[3] &#8594; $row[1]</h3><br>";
+                <h3 style="text-align: center;">Odgovori</h3><br>
+                <?php
+                while ($row = $data->fetch_array()) {
+                    echo "<h4 style=\"text-align: center;\">$row[13]: $row[3] &#8594; $row[1]</h4><br>";                
                 }
-                ?>                
+                ?>     
                 <div class="large-2 large-offset-5 columns">
                     <a class="button expand tiny" href="hr-eng.php"  >Nastavi</a>
                 </div>
