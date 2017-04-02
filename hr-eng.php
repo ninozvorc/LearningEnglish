@@ -13,20 +13,39 @@ $displ = "";
 $color = "";
 $resp = "";
 $disply = "";
+$hr_id = "";
+$en_id = "";
 
 if (isset($_POST["engl"])) {
     $displ = "style=\"display: none\"";
     $eng_word = $_POST["engl"];
     $hr_word = $_POST["croa"];
 
+    $query = "SELECT * FROM hr_word WHERE word like '$hr_word' ";
+    $data = $baza->selectDB($query);
+    if ($row = $data->fetch_array()) {
+        $hr_id=$row[0];
+    }
+
     $query = "select * from hr_word h, en_word e, dictionary d, word_type w where w.id=d.word_type and h.id=d.hr_word and e.id=d.en_word and h.word like '$hr_word' and e.word like '$eng_word' ";
     $data = $baza->selectDB($query);
-    if ($data->fetch_array()) {
+    if ($data->fetch_array()) {    
+
+        $query1 = "SELECT * FROM en_word WHERE word like '$eng_word' ";
+        $data1 = $baza->selectDB($query1);
+        if ($row1 = $data1->fetch_array()) {
+            $en_id=$row1[0];
+        }
+
         $mess = "Odgovor je točan!";
         $color = "green";
+        $upit = "UPDATE dictionary SET hr_en_p = hr_en_p + 1 WHERE dictionary.hr_word = $hr_id AND dictionary.en_word = $en_id;";
+        $baza->updateDB($upit);
     } else {
         $mess = "Odgovor je netočan!";
         $color = "red";
+        $upit = "UPDATE dictionary SET hr_en_n = hr_en_n + 1 WHERE dictionary.hr_word = $hr_id;";
+        $baza->updateDB($upit);
     }
     $query = "select * from hr_word h, en_word e, dictionary d, word_type w where w.id=d.word_type and h.id=d.hr_word and e.id=d.en_word and h.word like '$hr_word' ";
     $data = $baza->selectDB($query);
@@ -91,7 +110,7 @@ if (isset($_POST["engl"])) {
                 <h3 style="text-align: center;">Odgovori</h3><br>
                 <?php
                 while ($row = $data->fetch_array()) {
-                    echo "<h4 style=\"text-align: center;\">$row[13]: $row[3] &#8594; $row[1]</h4><br>";                
+                    echo "<h4 style=\"text-align: center;\">$row[13]: $row[3] &#8594; $row[1]</h4><br>";
                 }
                 ?>     
                 <div class="large-2 large-offset-5 columns">
