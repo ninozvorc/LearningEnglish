@@ -30,13 +30,11 @@ if (isset($_POST["engl"])) {
     $query = "select * from hr_word h, en_word e, dictionary d, word_type w where w.id=d.word_type and h.id=d.hr_word and e.id=d.en_word and h.word like '$hr_word' and e.word like '$eng_word' ";
     $data = $baza->selectDB($query);
     if ($data->fetch_array()) {    
-
         $query1 = "SELECT * FROM en_word WHERE word like '$eng_word' ";
         $data1 = $baza->selectDB($query1);
         if ($row1 = $data1->fetch_array()) {
             $en_id=$row1[0];
         }
-
         $mess = "Odgovor je točan!";
         $color = "green";
         $upit = "UPDATE dictionary SET hr_en_p = hr_en_p + 1 WHERE dictionary.hr_word = $hr_id AND dictionary.en_word = $en_id;";
@@ -49,6 +47,7 @@ if (isset($_POST["engl"])) {
     }
     $query = "select * from hr_word h, en_word e, dictionary d, word_type w where w.id=d.word_type and h.id=d.hr_word and e.id=d.en_word and h.word like '$hr_word' ";
     $data = $baza->selectDB($query);
+
 } else {
     $disply = "style=\"display: none\"";
 
